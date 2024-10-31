@@ -235,7 +235,7 @@ $(function() {
     socket.on('startlist', function(data) {
         console.log("[on] startlist:" + data.length /* + JSON.stringify(data) */ );
         startlist = data;
-        if(data.length > 20) {
+        if(data.length > 60) {
             $("#nav-seriesranking").show();
         } else {
             $("#nav-seriesranking").hide();
