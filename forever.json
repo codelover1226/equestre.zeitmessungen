@@ -1,0 +1,10 @@
+[
+ {
+  "uid": "equestre-node",
+  "append": true,
+  "watch": true,
+  "script": "push_server.js",
+  "sourceDir": "/root/projects/equestre-node-2.1",
+  "workingDir": "/root/projects/equestre-node-2.1"
+ }
+]
