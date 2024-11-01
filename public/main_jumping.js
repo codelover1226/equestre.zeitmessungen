@@ -306,6 +306,7 @@ $(function() {
             $("#nav-seriesranking").show();
         } else {
             $("#nav-seriesranking").hide();
+            $("#nav-seriesranking").show();
         }
 
         startlistmap = {};
