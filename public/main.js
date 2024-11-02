@@ -210,10 +210,12 @@ $(function() {
                         let pdf_name = event.info.pdfs[key];
                         pdf_name = pdf_name.replace(/\d+_/, "");
                         let pdf = $("<div class='disp-ico' style='clear:both;padding-left:25px;'><img style='width:18px;' src='images/pdf.png'/>&nbsp;" + pdf_name + "</div>");
+                        // let pdf = $("<div class='disp-ico' style='clear:both;padding-left:25px;'><a href='/pdfs/"+event.info.pdfs[key] + "' target='_blank'><img style='width:18px;' src='images/pdf.png'/>&nbsp;" + pdf_name + "</a></div>");
                         eventTitle.append(pdf);
 
                         pdf.click(function() {
-                            downloadPdf(event.info.pdfs[key]);
+                            // downloadPdf(event.info.pdfs[key]);
+                            window.open("/pdfs/"+event.info.pdfs[key])
                             return false;
                         });  
                     });
