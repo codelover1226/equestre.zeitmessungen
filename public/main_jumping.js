@@ -302,11 +302,10 @@ $(function() {
     socket.on('startlist', function(data) {
         console.log("[on] startlist:" + data.length /* + JSON.stringify(data) */ );
         startlist = data;
-        if(data.length > 60) {
+        if(data.length > 70) {
             $("#nav-seriesranking").show();
         } else {
             $("#nav-seriesranking").hide();
-            $("#nav-seriesranking").show();
         }
 
         startlistmap = {};
