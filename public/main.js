@@ -228,7 +228,11 @@ $(function() {
                 if (event.info.link) {
                     let text = event.info.link.text;
                     let link = event.info.link.link;
-                    let linkTag = $("<div class='disp-ico' style='clear:both;padding-left:25px;'>" + text + " : " + link + "</div>");
+                    let linktext = link;
+                    if(link.length > 30){
+                        linktext = link.slice(0,30) + "...";
+                    }
+                    let linkTag = $("<div class='disp-ico' style='clear:both;padding-left:25px;'>" + text + " : " + "<a href='" + link + "' target='_blank'>" + linktext + "</a></div>");
                     eventTitle.append(linkTag);
                     
                     linkTag.click(function() {

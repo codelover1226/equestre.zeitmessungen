@@ -1104,62 +1104,41 @@ io.on('connection', function(socket) {
         let printnum = command.printnum;
         let title = command.title;
         let contents = command.contents;
-        let is_link = command.is_link;
-        if(is_link){
-            console.log("is link")
-            let pdfid = command.eventid + "_" + title;
-            event.info.pdfs = event.info.pdfs || {};
-            event.info.pdfs[pdfid] = contents;
-            event.info.pdf_is_link = is_link;
+        // event.id
+        let filename = printnum + "_" + title + ".pdf";
+        let path = __dirname + '/public/pdfs/' + filename;
 
-            // send running events
-            let eventInfos = events.map((event) => {
-                return { id: event.id, info: event.info, paused: event.paused };
-            });
-            
-            console.log("[emit] socket:events" + JSON.stringify(eventInfos));
-            
-            io.emit('events', eventInfos);   
-        }else{
-            // event.id
-            console.log("is not link")
-            let filename = printnum + "_" + title + ".pdf";
-            let path = __dirname + '/public/pdfs/' + filename;
+        if (type) {
+            filename = command.eventid + "_" + title;
+            path = __dirname + '/public/pdfs/' + filename;
+        }
 
-            if (type) {
-                filename = command.eventid + "_" + title;
-                path = __dirname + '/public/pdfs/' + filename;
+        let buff = Buffer.from(contents, 'base64');
+
+        fs.writeFile(path, buff, 'binary', err => {
+            if (err) {
+            console.error(err);
             }
+            // file written successfully
+        });
 
-            let buff = Buffer.from(contents, 'base64');
+        let pdfid = discipline + "_" + printnum;
 
-            fs.writeFile(path, buff, 'binary', err => {
-                if (err) {
-                console.error(err);
-                }
-                // file written successfully
-            });
+        if (type) {
+            pdfid = filename;
+        }
 
-            let pdfid = discipline + "_" + printnum;
+        event.info.pdfs = event.info.pdfs || {};
+        event.info.pdfs[pdfid] = filename;
 
-            if (type) {
-                pdfid = filename;
-            }
-
-            event.info.pdfs = event.info.pdfs || {};
-            event.info.pdfs[pdfid] = filename;
-            event.info.pdf_is_link = is_link;
-
-            // send running events
-            let eventInfos = events.map((event) => {
-                return { id: event.id, info: event.info, paused: event.paused };
-            });
-            
-            console.log("[emit] socket:events" + JSON.stringify(eventInfos));
-            
-            io.emit('events', eventInfos);   
-        }   
+        // send running events
+        let eventInfos = events.map((event) => {
+            return { id: event.id, info: event.info, paused: event.paused };
+        });
         
+        console.log("[emit] socket:events" + JSON.stringify(eventInfos));
+        
+        io.emit('events', eventInfos);        
     }
 
     async function processLink(command) {
