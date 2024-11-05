@@ -208,16 +208,32 @@ $(function() {
                 if (event.info.pdfs) {
                     Object.keys(event.info.pdfs).forEach(key => {
                         let pdf_name = event.info.pdfs[key];
-                        pdf_name = pdf_name.replace(/\d+_/, "");
+                        pdf_name = key.replace(/\d+_/, "");
                         let pdf = $("<div class='disp-ico' style='clear:both;padding-left:25px;'><img style='width:18px;' src='images/pdf.png'/>&nbsp;" + pdf_name + "</div>");
                         // let pdf = $("<div class='disp-ico' style='clear:both;padding-left:25px;'><a href='/pdfs/"+event.info.pdfs[key] + "' target='_blank'><img style='width:18px;' src='images/pdf.png'/>&nbsp;" + pdf_name + "</a></div>");
                         eventTitle.append(pdf);
 
                         pdf.click(function() {
                             // downloadPdf(event.info.pdfs[key]);
-                            window.open("/pdfs/"+event.info.pdfs[key])
+                            if(event.info.pdf_is_link){
+                                window.open(event.info.pdfs[key])
+                            } else {
+                                window.open("/pdfs/"+event.info.pdfs[key])
+                            }
                             return false;
                         });  
+                    });
+                }
+
+                if (event.info.link) {
+                    let text = event.info.link.text;
+                    let link = event.info.link.link;
+                    let linkTag = $("<div class='disp-ico' style='clear:both;padding-left:25px;'>" + text + " : " + link + "</div>");
+                    eventTitle.append(linkTag);
+                    
+                    linkTag.click(function() {
+                        window.open(link)
+                        return false;
                     });
                 }
                

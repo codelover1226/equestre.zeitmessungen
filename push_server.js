@@ -337,6 +337,8 @@ io.on('connection', function(socket) {
             processXls(obj);
         } else if (obj.cmd == 'pdf') {
             processPdf(obj);
+        } else if (obj.cmd == 'link') {
+            processLink(obj);
         }
     });
 
@@ -395,6 +397,8 @@ io.on('connection', function(socket) {
             processXls(obj);
         } else if (obj.cmd == 'pdf') {
             processPdf(obj);
+        } else if (obj.cmd == 'link') {
+            processLink(obj);
         }
 
     });
@@ -1100,33 +1104,82 @@ io.on('connection', function(socket) {
         let printnum = command.printnum;
         let title = command.title;
         let contents = command.contents;
+        let is_link = command.is_link;
+        if(is_link){
+            console.log("is link")
+            let pdfid = command.eventid + "_" + title;
+            event.info.pdfs = event.info.pdfs || {};
+            event.info.pdfs[pdfid] = contents;
+            event.info.pdf_is_link = is_link;
 
-        // event.id
-        let filename = printnum + "_" + title + ".pdf";
-        let path = __dirname + '/public/pdfs/' + filename;
+            // send running events
+            let eventInfos = events.map((event) => {
+                return { id: event.id, info: event.info, paused: event.paused };
+            });
+            
+            console.log("[emit] socket:events" + JSON.stringify(eventInfos));
+            
+            io.emit('events', eventInfos);   
+        }else{
+            // event.id
+            console.log("is not link")
+            let filename = printnum + "_" + title + ".pdf";
+            let path = __dirname + '/public/pdfs/' + filename;
 
-        if (type) {
-            filename = command.eventid + "_" + title;
-            path = __dirname + '/public/pdfs/' + filename;
-        }
-
-        let buff = Buffer.from(contents, 'base64');
-
-        fs.writeFile(path, buff, 'binary', err => {
-            if (err) {
-              console.error(err);
+            if (type) {
+                filename = command.eventid + "_" + title;
+                path = __dirname + '/public/pdfs/' + filename;
             }
-            // file written successfully
-        });
 
-        let pdfid = discipline + "_" + printnum;
+            let buff = Buffer.from(contents, 'base64');
 
-        if (type) {
-            pdfid = filename;
+            fs.writeFile(path, buff, 'binary', err => {
+                if (err) {
+                console.error(err);
+                }
+                // file written successfully
+            });
+
+            let pdfid = discipline + "_" + printnum;
+
+            if (type) {
+                pdfid = filename;
+            }
+
+            event.info.pdfs = event.info.pdfs || {};
+            event.info.pdfs[pdfid] = filename;
+            event.info.pdf_is_link = is_link;
+
+            // send running events
+            let eventInfos = events.map((event) => {
+                return { id: event.id, info: event.info, paused: event.paused };
+            });
+            
+            console.log("[emit] socket:events" + JSON.stringify(eventInfos));
+            
+            io.emit('events', eventInfos);   
+        }   
+        
+    }
+
+    async function processLink(command) {
+        let event = getSocketEvent();
+
+        if (command.type) {
+            event = events.find(e => e.id == command.eventid) || false;
         }
 
-        event.info.pdfs = event.info.pdfs || {};
-        event.info.pdfs[pdfid] = filename;
+        if (event === false) {
+            console.error("link command: failed.");
+            return;
+        }
+
+        let text = command.text;
+        let link = command.link;
+        
+        event.info.link = {};
+        event.info.link.text = text;
+        event.info.link.link = link;
 
         // send running events
         let eventInfos = events.map((event) => {
@@ -1135,8 +1188,7 @@ io.on('connection', function(socket) {
         
         console.log("[emit] socket:events" + JSON.stringify(eventInfos));
         
-        io.emit('events', eventInfos);      
-        
+        io.emit('events', eventInfos);        
     }
 
     async function processStartlist(command) {

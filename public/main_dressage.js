@@ -920,17 +920,17 @@ $(function() {
         let seriesranking2 = [];
         seriesranking1.push(rankings[0]);
         seriesranking2.push(rankings[0]);
-        for(let i = 1; i < rankings.length; i++) {
-            let ranking = rankings[i]
-            ranking[0] = Math.floor((rankings[i][0] + 1) / 2)
-            if(i % 2 == 1){
-                seriesranking1.push(ranking);
-            } else {
-                seriesranking2.push(ranking);
-            }
-        }
-        updateTable("seriesranking1", seriesranking1);
-        updateTable("seriesranking2", seriesranking2);
+        // for(let i = 1; i < rankings.length; i++) {
+        //     let ranking = rankings[i]
+        //     ranking[0] = Math.floor((rankings[i][0] + 1) / 2)
+        //     if(i % 2 == 1){
+        //         seriesranking1.push(ranking);
+        //     } else {
+        //         seriesranking2.push(ranking);
+        //     }
+        // }
+        // updateTable("seriesranking1", seriesranking1);
+        // updateTable("seriesranking2", seriesranking2);
         updateTable("ranking", rankings);
         localizeAll(lang);
     }

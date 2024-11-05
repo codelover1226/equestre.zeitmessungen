@@ -293,7 +293,7 @@ $(function() {
 
     // update team info
     socket.on('teams', function(data) {
-        console.log("[on] teams:" + data.length /* + JSON.stringify(data) */ );
+        console.log("[on] teams:" + data /* + JSON.stringify(data) */ );
 
         teams = data;
     });
@@ -330,7 +330,7 @@ $(function() {
         gameInfo.eventId = +curEvent;
         currentTableType = gameInfo.table_type;
         twoPhaseGame = gameInfo.two_phase;
-        rankingsTemp = data.ranking;
+        rankingsTemp = Array.from(data.ranking);
         window.rankings1 = data.ranking;
         team_rankings = data.team_ranking;
         console.log("rankings first")
@@ -342,10 +342,31 @@ $(function() {
         let rankingsTempS2E = [];
         rankings = [];
         rankings.push(rankingsTemp[0])
-        for (let i = 1; i < rankingsTemp.length; i++) {
-            let rank = rankingsTemp[i];
-            console.log(rank[rank.length - 1] + " " + rankings[rankings.length - 1][rank.length - 1])
-            if (i > 1 && rank[rank.length - 1] == rankings[rankings.length - 1][rank.length - 1]){
+        rankingsTemp = rankingsTemp.slice(1)
+        window.ttt = rankingsTemp;
+        window.tt = eventInfo;
+        if(eventInfo.roundNumber > 1)
+            rankingsTemp = rankingsTemp.sort((a,b)=>{
+                len = a.length;
+                if(len > 9){
+                    if(Number(a[len - 2]) > Number(b[len - 2]))
+                        return 1;
+                    else if(Number(a[len - 2]) == Number(b[len - 2])){
+                        if(Number(a[len - 1]) > Number(b[len - 1]))
+                            return 1
+                        else return -1;
+                    }
+                    else 
+                        return -1;
+                } else return 1;
+            })
+
+        for (let i = 0; i < rankingsTemp.length; i++) {
+            let rank = Array.from(rankingsTemp[i]);
+            // rankings.push(rank)
+            // continue;
+            // console.log(rank[rank.length - 1] + " " + rankings[rankings.length - 1][rank.length - 1])
+            if (i > 0 && rank[rank.length - 1] == rankings[rankings.length - 1][rank.length - 1]){
                 rank[0] = rankings[rankings.length - 1][0]
             }
             if (rank.length == 11) {
@@ -356,16 +377,16 @@ $(function() {
                         rank[0] = rankings.length;
                     }
                     rankings.push(rank);
-                } else if (rank[8] == '') {
-                    if(rank[7].includes("RETIRED"))
-                        rankingsTempS2.push(rank);
-                    else
-                        rankingsTempS2E.push(rank);
                 } else if (rank[6] == '') {
                     if(rank[5].includes("RETIRED"))
                         rankingsTempS1.push(rank);
                     else
                         rankingsTempS1E.push(rank);
+                } else if (rank[8] == '') {
+                    if(rank[7].includes("RETIRED"))
+                        rankingsTempS2.push(rank);
+                    else
+                        rankingsTempS2E.push(rank);
                 }
             } else {
                 console.log("sth wrong")
@@ -1263,12 +1284,16 @@ $(function() {
             updateHeaders(rankings[0]);
         }
         updateTable("ranking", rankings);
+        if(rankings.length == 0) return;
         let seriesranking1 = [];
         let seriesranking2 = [];
-        seriesranking1.push(rankings[0]);
-        seriesranking2.push(rankings[0]);
+        seriesranking1.push(Array.from(rankings[0]));
+        seriesranking2.push(Array.from(rankings[0]));
         for(let i = 1; i < rankings.length; i++) {
-            let ranking = rankings[i]
+            let ranking = Array.from(rankings[i])
+            // console.log(rankings[i])
+            // Object.assign(ranking, rankings[i])
+            // let ranking = rankings[i]
             ranking[0] = Math.floor((rankings[i][0] + 1) / 2)
             if(i % 2 == 1){
                 seriesranking1.push(ranking);
