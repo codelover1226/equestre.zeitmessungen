@@ -1156,9 +1156,9 @@ io.on('connection', function(socket) {
         let text = command.text;
         let link = command.link;
         
-        event.info.link = {};
-        event.info.link.text = text;
-        event.info.link.link = link;
+        event.info.links = event.info.links || {};
+        event.info.links[text] = link;
+        // event.info.link.link = link;
 
         // send running events
         let eventInfos = events.map((event) => {

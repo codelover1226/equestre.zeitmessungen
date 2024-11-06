@@ -225,21 +225,42 @@ $(function() {
                     });
                 }
 
-                if (event.info.link) {
-                    let text = event.info.link.text;
-                    let link = event.info.link.link;
-                    let linktext = link;
-                    if(link.length > 30){
-                        linktext = link.slice(0,30) + "...";
-                    }
-                    let linkTag = $("<div class='disp-ico' style='clear:both;padding-left:25px;'>" + text + " : " + "<a href='" + link + "' target='_blank'>" + linktext + "</a></div>");
-                    eventTitle.append(linkTag);
-                    
-                    linkTag.click(function() {
-                        window.open(link)
-                        return false;
+                if (event.info.links) {
+                    Object.keys(event.info.links).forEach(key => {
+                        let link = event.info.links[key];
+                        text = key.replace(/\d+_/, "");
+                        // let linkTag = $("<div class='disp-ico' style='clear:both;padding-left:25px;'><img style='width:18px;' src='images/pdf.png'/>&nbsp;" + pdf_name + "</div>");
+                        // let pdf = $("<div class='disp-ico' style='clear:both;padding-left:25px;'><a href='/pdfs/"+event.info.pdfs[key] + "' target='_blank'><img style='width:18px;' src='images/pdf.png'/>&nbsp;" + pdf_name + "</a></div>");
+                        let linkTag = $("<div class='disp-ico' style='clear:both;padding-left:25px;'>" + text + " : " + "<a href='https://" + link + "' target='_blank'>" + link + "</a></div>");
+                        eventTitle.append(linkTag);
+
+                        // pdf.click(function() {
+                        //     // downloadPdf(event.info.pdfs[key]);
+                        //     if(event.info.pdf_is_link){
+                        //         window.open(event.info.pdfs[key])
+                        //     } else {
+                        //         window.open("/pdfs/"+event.info.pdfs[key])
+                        //     }
+                        //     return false;
+                        // });  
                     });
                 }
+
+                // if (event.info.link) {
+                //     let text = event.info.link.text;
+                //     let link = event.info.link.link;
+                //     let linktext = link;
+                //     if(link.length > 30){
+                //         linktext = link.slice(0,30) + "...";
+                //     }
+                //     let linkTag = $("<div class='disp-ico' style='clear:both;padding-left:25px;'>" + text + " : " + "<a href='" + link + "' target='_blank'>" + linktext + "</a></div>");
+                //     eventTitle.append(linkTag);
+                    
+                //     // linkTag.click(function() {
+                //     //     window.open(link)
+                //     //     return false;
+                //     // });
+                // }
                
                 tr.children("td:nth-child(2)").html($(eventTitle));
     
