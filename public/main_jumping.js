@@ -326,6 +326,7 @@ $(function() {
     socket.on('ranking', function(data) {
         console.log("[on] ranking:" + data.ranking.length /* + JSON.stringify(data) */ );
         // move "labeled" to the bottom
+        if(data.ranking.length == 0)return;
         gameInfo = data.gameInfo;
         gameInfo.eventId = +curEvent;
         currentTableType = gameInfo.table_type;
