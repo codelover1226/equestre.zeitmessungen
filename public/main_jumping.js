@@ -340,12 +340,22 @@ $(function() {
         let rankingsTempS1E = [];
         let rankingsTempS2 = [];
         let rankingsTempS2E = [];
+        let rankingsTempS3 = [];
+        let rankingsTempS3E = [];
+        let rankingsTempS4 = [];
+        let rankingsTempS4E = [];
+        let rankingsTempS = [
+            rankingsTempS4, rankingsTempS4E,
+            rankingsTempS3, rankingsTempS3E, 
+            rankingsTempS2, rankingsTempS2E, 
+            rankingsTempS1, rankingsTempS1E, 
+        ]
         rankings = [];
         rankings.push(rankingsTemp[0])
         rankingsTemp = rankingsTemp.slice(1)
         window.ttt = rankingsTemp;
         window.tt = eventInfo;
-        if(eventInfo.roundNumber > 1)
+        if(eventInfo.roundNumber > 1 && eventInfo.jumpoff == 0)
             rankingsTemp = rankingsTemp.sort((a,b)=>{
                 len = a.length;
                 if(len > 9){
@@ -366,10 +376,10 @@ $(function() {
             // rankings.push(rank)
             // continue;
             // console.log(rank[rank.length - 1] + " " + rankings[rankings.length - 1][rank.length - 1])
-            if (i > 0 && rank[rank.length - 1] == rankings[rankings.length - 1][rank.length - 1]){
-                rank[0] = rankings[rankings.length - 1][0]
+            if (i > 0 && rank[rank.length - 1] == rankings[rankings.length - 1][rank.length - 1] && eventInfo.jumpoff == 0){
+                // rank[0] = rankings[rankings.length - 1][0]
             }
-            if (rank.length == 11) {
+            if (rank.length == 11 && eventInfo.jumpoff == 0) {
                 if(rank[8] != '' && rank[6] != ''){                    
                     if (i > 1 && rank[rank.length - 1] == rankings[rankings.length - 1][rank.length - 1]){
                         rank[0] = rankings[rankings.length - 1][0]
@@ -388,43 +398,105 @@ $(function() {
                     else
                         rankingsTempS2E.push(rank);
                 }
+            } else if (rank.length == 13 && eventInfo.jumpoff == 0) {
+                if(rank[8] != '' && rank[10] != '' && rank[6] != ''){                    
+                    if (i > 1 && rank[rank.length - 1] == rankings[rankings.length - 1][rank.length - 1]){
+                        rank[0] = rankings[rankings.length - 1][0]
+                    } else {
+                        rank[0] = rankings.length;
+                    }
+                    rankings.push(rank);
+                } else if (rank[6] == '') {
+                    if(rank[5].includes("RETIRED"))
+                        rankingsTempS1.push(rank);
+                    else
+                        rankingsTempS1E.push(rank);
+                } else if (rank[8] == '') {
+                    if(rank[7].includes("RETIRED"))
+                        rankingsTempS2.push(rank);
+                    else
+                        rankingsTempS2E.push(rank);
+                } else if (rank[10] == '') {
+                    if(rank[9].includes("RETIRED"))
+                        rankingsTempS3.push(rank);
+                    else
+                        rankingsTempS3E.push(rank);
+                }
+            } else if (rank.length == 15 && eventInfo.jumpoff == 0) { 
+                if(rank[12] != '' && rank[10] != '' && rank[8] != '' && rank[6] != ''){                    
+                    if (i > 1 && rank[rank.length - 1] == rankings[rankings.length - 1][rank.length - 1]){
+                        rank[0] = rankings[rankings.length - 1][0]
+                    } else {
+                        rank[0] = rankings.length;
+                    }
+                    rankings.push(rank);
+                } else if (rank[6] == '') {
+                    if(rank[5].includes("RETIRED"))
+                        rankingsTempS1.push(rank);
+                    else
+                        rankingsTempS1E.push(rank);
+                } else if (rank[8] == '') {
+                    if(rank[7].includes("RETIRED"))
+                        rankingsTempS2.push(rank);
+                    else
+                        rankingsTempS2E.push(rank);
+                } else if (rank[10] == '') {
+                    if(rank[9].includes("RETIRED"))
+                        rankingsTempS3.push(rank);
+                    else
+                        rankingsTempS3E.push(rank);
+                } else if (rank[12] == '') {
+                    if(rank[11].includes("RETIRED"))
+                        rankingsTempS4.push(rank);
+                    else
+                        rankingsTempS4E.push(rank);
+                }
             } else {
-                console.log("sth wrong")
                 rankings.push(rank);
             }
         }
-        for (let i = 0; i < rankingsTempS2E.length; i++) {
-            let rank = rankingsTempS2E[i];
-            rank[0] = rankings.length - i;
-            rank[9] = ""
-            rank[10] = ""
-            rankings.push(rank);
+        for (let i = 0; i < rankingsTempS.length ; i++){
+            rankingsTempSi = rankingsTempS[i];
+            for (let ii = 0; ii < rankingsTempSi.length; ii++) {
+                let rank = rankingsTempSi[ii];
+                rank[0] = rankings.length - ii;
+                rank[rank.length - 2] = ""
+                rank[rank.length - 1] = ""
+                rankings.push(rank);
+            }
         }
-        for (let i = 0; i < rankingsTempS2.length; i++) {
-            let rank = rankingsTempS2[i];
-            rank[0] = rankings.length - i;
-            rank[9] = ""
-            rank[10] = ""
-            rankings.push(rank);
-        }
-        for (let i = 0; i < rankingsTempS1E.length; i++) {
-            let rank = rankingsTempS1E[i];
-            rank[0] = rankings.length - i;
-            rank[7] = ""
-            rank[8] = ""
-            rank[9] = ""
-            rank[10] = ""
-            rankings.push(rank);
-        }
-        for (let i = 0; i < rankingsTempS1.length; i++) {
-            let rank = rankingsTempS1[i];
-            rank[0] = rankings.length - i;
-            rank[7] = ""
-            rank[8] = ""
-            rank[9] = ""
-            rank[10] = ""
-            rankings.push(rank);
-        }
+        // for (let i = 0; i < rankingsTempS2E.length; i++) {
+        //     let rank = rankingsTempS2E[i];
+        //     rank[0] = rankings.length - i;
+        //     rank[9] = ""
+        //     rank[10] = ""
+        //     rankings.push(rank);
+        // }
+        // for (let i = 0; i < rankingsTempS2.length; i++) {
+        //     let rank = rankingsTempS2[i];
+        //     rank[0] = rankings.length - i;
+        //     rank[9] = ""
+        //     rank[10] = ""
+        //     rankings.push(rank);
+        // }
+        // for (let i = 0; i < rankingsTempS1E.length; i++) {
+        //     let rank = rankingsTempS1E[i];
+        //     rank[0] = rankings.length - i;
+        //     rank[7] = ""
+        //     rank[8] = ""
+        //     rank[9] = ""
+        //     rank[10] = ""
+        //     rankings.push(rank);
+        // }
+        // for (let i = 0; i < rankingsTempS1.length; i++) {
+        //     let rank = rankingsTempS1[i];
+        //     rank[0] = rankings.length - i;
+        //     rank[7] = ""
+        //     rank[8] = ""
+        //     rank[9] = ""
+        //     rank[10] = ""
+        //     rankings.push(rank);
+        // }
         console.log("rankings after")
         console.log(rankings)
         
