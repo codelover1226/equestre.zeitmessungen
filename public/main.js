@@ -235,7 +235,7 @@ $(function() {
                         eventTitle.append(linkTag);
 
                         linkTag.click(function() {
-                            window.open(link)
+                            window.open("https://" + link)
                             return false;
                         });  
                     });
