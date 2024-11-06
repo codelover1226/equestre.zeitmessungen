@@ -234,15 +234,10 @@ $(function() {
                         let linkTag = $("<div class='disp-ico' style='clear:both;padding-left:25px;'>" + text + " : " + "<a href='https://" + link + "' target='_blank'>" + link + "</a></div>");
                         eventTitle.append(linkTag);
 
-                        // pdf.click(function() {
-                        //     // downloadPdf(event.info.pdfs[key]);
-                        //     if(event.info.pdf_is_link){
-                        //         window.open(event.info.pdfs[key])
-                        //     } else {
-                        //         window.open("/pdfs/"+event.info.pdfs[key])
-                        //     }
-                        //     return false;
-                        // });  
+                        linkTag.click(function() {
+                            window.open(link)
+                            return false;
+                        });  
                     });
                 }
 
