@@ -1142,11 +1142,11 @@ io.on('connection', function(socket) {
     }
 
     async function processLink(command) {
-        let event = getSocketEvent();
+        // let event = getSocketEvent(); // get live event
 
-        if (command.type) {
+        // if (command.type) {
             event = events.find(e => e.id == command.eventid) || false;
-        }
+        // }
 
         if (event === false) {
             console.error("link command: failed.");

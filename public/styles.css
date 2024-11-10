@@ -200,12 +200,16 @@ footer {
     cursor: pointer;
 }
 
-.table-scoreboard tr:nth-child(even) td {
+.table-scoreboard tr.eventTitle td {
     background-color: #232323;
 }
 
+.table-scoreboard tr:nth-child(even) td {
+    /* background-color: #232323; */
+}
+
 .table-scoreboard tr:nth-child(odd) td {
-    background-color: black;
+    /* background-color: black; */
 }
 
 .col-rank {

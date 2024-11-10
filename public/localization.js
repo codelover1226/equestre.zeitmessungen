@@ -1,5 +1,6 @@
 var localization = {
     en: {
+        VERSION1: "Live-Timing Equestre Version 2.2.1",
         SERIES1: "Series1",
         SERIES2: "Series2",
         SERIESRANKING: "Ranking 1/2",
@@ -72,6 +73,7 @@ var localization = {
         UNOFFICIAL: "ALL RESULTS ARE UNOFFICIAL",
     },
     de: {
+        VERSION1: "Live-Timing Equestre Version 2.2.1",
         SERIES1: "Klassement Serie 1",
         SERIES2: "Klassement Serie 2",
         SERIESRANKING: "Klassement 1/2",
@@ -141,6 +143,7 @@ var localization = {
         UNOFFICIAL: "ALLE RESULTATE SIND INOFFIZIELL", 
     },
     fr: {
+        VERSION1: "Live-Timing Equestre Version 2.2.1",
         SERIES1: "Series1",
         SERIES2: "Series2",
         SERIESRANKING: "Classement 1/2",
@@ -210,6 +213,7 @@ var localization = {
         UNOFFICIAL: "TOUS LES RÉSULTATS SONT NON OFFICIELS",
     },
     it: {
+        VERSION1: "Live-Timing Equestre Version 2.2.1",
         SERIES1: "Series1",
         SERIES2: "Series2",
         SERIESRANKING: "Classifiche 1/2",

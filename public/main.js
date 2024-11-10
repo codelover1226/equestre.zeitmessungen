@@ -167,8 +167,11 @@ $(function() {
     function updateEventList() {
         $('#live-events').html('');
 
+        let eventNames = [];
+        console.log('updateEventList', events.length)
         for (let i = 0; i < events.length; i++) {
             const event = events[i];
+            if(eventNames.includes(event.info.title)){
 
             //if (event.info.eventing == 0) {
 
@@ -181,9 +184,10 @@ $(function() {
                 tr.append($('<td class="col-date">').html("&nbsp"));
                 tr.append($('<td class="col-xls">').html("&nbsp"));
 
-                let title = event.info.title + "<span id='live-ico-" + event.id + "' style='display:none; float: right;'><img src='images/giphy.gif' width=60 /></span>";
+                let title = event.info.title;
+                // let title = event.info.title + "<span id='live-ico-" + event.id + "' style='display:none; float: right;'><img src='images/giphy.gif' width=60 /></span>";
 
-                tr.children("td:nth-child(1)").html(title);
+                // tr.children("td:nth-child(1)").html(title);
                 //tr.children("td").eq(0).html(title);
 
                 const eventTitle = $('<div></div>');
@@ -197,6 +201,7 @@ $(function() {
                 }
 
 
+                eventTitle.append("<span id='live-ico-" + event.id + "' style='display:none; float: right;'><img src='images/giphy.gif' width=60 /></span>");
                 eventTitle.append(`<div  class="mb-2">${event.info.eventTitle}</div>`); //style='float:left;'
                 // TODO: remove `hidden` class when the estimation calculation is fixed
                 const eventProgress = $(`<div class="progress"><div class="progress-bar" role="progressbar" style="width: 70%">35 / 75</div></div> <div class="mt-2 hidden"><span id="event" data-key="ETA">Estimated Time of Completion: </span><span id="eta">11:45</span></div>`);
@@ -268,7 +273,7 @@ $(function() {
                 tr.click(function() {
                     eventId = $(this).attr("data-ref");
                     joinToEvent(eventId);
-                });  
+                });
                 
                 if (event.info.live == 1)
                     $('#live-ico-' + event.id).show();
@@ -284,6 +289,24 @@ $(function() {
                         return false;
                     });
                 }
+            } else {
+                eventNames.push(event.info.title);
+
+                $('#live-events').append($('<tr class="d-flex eventTitle">'));
+                tr = $('#live-events tr:last');
+                tr.append($('<td class="col-12">').html("&nbsp"));
+                // tr.append($('<td class="col-5">').html("&nbsp"));
+                // tr.append($('<td class="col-date">').html("&nbsp"));
+                // tr.append($('<td class="col-date">').html("&nbsp"));
+                // tr.append($('<td class="col-date">').html("&nbsp"));
+                // tr.append($('<td class="col-xls">').html("&nbsp"));
+
+                let title = event.info.title;
+                // let title = event.info.title + "<span id='live-ico-" + event.id + "' style='display:none; float: right;'><img src='images/giphy.gif' width=60 /></span>";
+
+                tr.children("td:nth-child(1)").html(title);
+                i--;
+            }
         }
 
         updateEventProgress();

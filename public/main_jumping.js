@@ -313,8 +313,9 @@ $(function() {
             startlistmap[startlistentry.num] = startlistentry;
         }
         window.starlistmap1 = startlistmap;
-
         // updateUI
+        window.startlist = startlist
+        updateStartList();
     });
 
     socket.on('competitors', function(data) {
