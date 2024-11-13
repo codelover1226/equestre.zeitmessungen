@@ -166,19 +166,20 @@ $(function() {
 
     function updateEventList() {
         $('#live-events').html('');
+        $('#event_list_body').html('');
 
         let eventNames = [];
         console.log('updateEventList', events.length)
         for (let i = 0; i < events.length; i++) {
             const event = events[i];
-            if(eventNames.includes(event.info.title)){
+            if(eventNames.includes(event.info.title)){//add runs
 
             //if (event.info.eventing == 0) {
-
-                $('#live-events').append($('<tr class="d-flex">'));
-                tr = $('#live-events tr:last');
-                tr.append($('<td class="col-3">').html("&nbsp"));
-                tr.append($('<td class="col-5">').html("&nbsp"));
+                let id = '#live-events-' + eventNames.length;
+                $(id).append($('<tr class="d-flex">'));
+                tr = $(id + ' tr:last');
+                tr.append($('<td class="col-2" rowspan="2" style="border-top:0px;border-bottom:0px">').html("&nbsp"));
+                tr.append($('<td class="col-6">').html("&nbsp"));
                 tr.append($('<td class="col-date">').html("&nbsp"));
                 tr.append($('<td class="col-date">').html("&nbsp"));
                 tr.append($('<td class="col-date">').html("&nbsp"));
@@ -289,22 +290,25 @@ $(function() {
                         return false;
                     });
                 }
-            } else {
+            } else {//add events
                 eventNames.push(event.info.title);
+                let title = event.info.title;
+                // $('#event_list_body').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-7 run-title" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-'+ (eventNames.length + 1) + '"></tbody></table>'));
+                $('#event_list_body').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-2" data-key=""></th><th class="col-6" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
 
-                $('#live-events').append($('<tr class="d-flex eventTitle">'));
-                tr = $('#live-events tr:last');
-                tr.append($('<td class="col-12">').html("&nbsp"));
+
+                // $('#live-events').append($('<tr class="d-flex eventTitle">'));
+                // tr = $('#live-events tr:last');
+                // tr.append($('<td class="col-12">').html("&nbsp"));
                 // tr.append($('<td class="col-5">').html("&nbsp"));
                 // tr.append($('<td class="col-date">').html("&nbsp"));
                 // tr.append($('<td class="col-date">').html("&nbsp"));
                 // tr.append($('<td class="col-date">').html("&nbsp"));
                 // tr.append($('<td class="col-xls">').html("&nbsp"));
 
-                let title = event.info.title;
                 // let title = event.info.title + "<span id='live-ico-" + event.id + "' style='display:none; float: right;'><img src='images/giphy.gif' width=60 /></span>";
 
-                tr.children("td:nth-child(1)").html(title);
+                // tr.children("td:nth-child(1)").html(title);
                 i--;
             }
         }

@@ -34,18 +34,18 @@
       </div>
     </header>
     <main>
+      <div class="d-flex justify-content-between">
+        <div class="">
+        </div>
+        <div>
+          <span data-key="CONNECTED_COUNT">Connected Count: </span>
+          <span id="connected-count1">1</span>
+        </div>
+      </div>
       <div id="event_list" class="page">
-        <div class="subboard">
-          <div class="d-flex justify-content-between">
-            <div class="subtitle">
-              <h3 data-key="LIVE_EVENTS">Live Events</h3>
-            </div>
-            <div>
-              <span data-key="CONNECTED_COUNT">Connected Count: </span>
-              <span id="connected-count1">1</span>
-            </div>
-          </div>
+        <div class="subboard" id="event_list_body">
           <table class="table table-scoreboard eventboard">
+            <h4 class="event-title"></h4>
             <thead>
               <tr class="d-flex">
                 <th class="col-3" data-key="EVENT">Event</th>
@@ -54,19 +54,6 @@
                 <th class="col-date" data-key="START_DATE">Start Date</th>
                 <th class="col-date" data-key="END_DATE">End Date</th>
                 <th class="col-xls"><img src="images/xls.png" width="20"/></th>
-
-                <!-- TEST
-                <th class="col-xls">Nr.</th>
-                <th class="col-date">Date</th>
-                <th class="col-date">Time</th>
-                <th class="col-2">Category</th>
-                <th class="col-6">Title</th>
-                <th class="col-xls"><img src="images/xls.png" width="20"/></th>
-                <th class="col-xls"><img src="images/xls.png" width="20"/></th>
-                <th class="col-xls"><img src="images/xls.png" width="20"/></th>
-                <th class="col-xls"><img src="images/xls.png" width="20"/></th>
-                <th class="col-xls"><img src="images/xls.png" width="20"/></th>
-                >-->
               </tr> 
             </thead>
             <tbody id="live-events">

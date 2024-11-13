@@ -25,6 +25,10 @@ header {
     margin: 1rem;
 }
 
+table tbody:last-child{
+    border-bottom: 1px solid gray;
+}
+
 div.logo {
     height: 100%;
     width: 80%;
@@ -148,7 +152,7 @@ span.static-splitter {
 
 .subboard {
     clear: left;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 
 div.errors {
@@ -395,4 +399,8 @@ td p {
 
 .weratv:hover {
     color: #d8d8d8;
+}
+
+.run-title {
+    padding-left: 40px;
 }
