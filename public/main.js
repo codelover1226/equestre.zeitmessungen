@@ -166,7 +166,7 @@ $(function() {
 
     function updateEventList() {
         $('#live-events').html('');
-        $('#event_list_body').html('');
+        $('#event_list').html('');
 
         let eventNames = [];
         console.log('updateEventList', events.length)
@@ -293,8 +293,8 @@ $(function() {
             } else {//add events
                 eventNames.push(event.info.title);
                 let title = event.info.title;
-                // $('#event_list_body').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-7 run-title" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-'+ (eventNames.length + 1) + '"></tbody></table>'));
-                $('#event_list_body').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-2" data-key=""></th><th class="col-6" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
+                // $('#event_list').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-7 run-title" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-'+ (eventNames.length + 1) + '"></tbody></table>'));
+                $('#event_list').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-2" data-key=""></th><th class="col-6" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
 
 
                 // $('#live-events').append($('<tr class="d-flex eventTitle">'));
