@@ -5,3 +5,5 @@ public/rosson
 .idea
 *.tmp
 .foreverignore
+forever.json
+.env
