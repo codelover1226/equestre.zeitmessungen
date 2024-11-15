@@ -204,6 +204,9 @@ footer {
     cursor: pointer;
 }
 
+.eventboard {
+    margin-bottom: 54px;
+}
 .table-scoreboard tr.eventTitle td {
     background-color: #232323;
     font-size: x-large;
