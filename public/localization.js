@@ -61,7 +61,7 @@ var localization = {
         HEIGHT: 'Height',
         INITIAL_LIST_AMOUNT: 'Prize money',
         NOTES: 'Remarks',
-        SCHEDULER_NUMBER: 'Program number',
+        SCHEDULER_NUMBER: 'Program Nr',
         DATE: 'Date',
         CCRANKING: 'CC Ranking',
         RUN_START: 'Run start',

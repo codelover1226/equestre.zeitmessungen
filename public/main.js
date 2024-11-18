@@ -266,9 +266,10 @@ $(function() {
                 tr.children("td:nth-child(2)").html($(eventTitle));
     
                 tr.children("td:nth-child(3)").html(event.info.category);
-                tr.children("td:nth-child(4)").html(formatDate(event.info.startDate));
-                tr.children("td:nth-child(5)").html(formatDate(event.info.endDate));
-    
+                // tr.children("td:nth-child(4)").html(formatDate(event.info.startDate));
+                // tr.children("td:nth-child(5)").html(formatDate(event.info.endDate));
+                tr.children("td:nth-child(4)").html(event.info.schedulerNumber);
+                tr.children("td:nth-child(5)").html(event.info.eventTime)
                 tr.attr("data-ref", event.id);
     
                 tr.click(function() {
@@ -294,7 +295,7 @@ $(function() {
                 eventNames.push(event.info.title);
                 let title = event.info.title;
                 // $('#event_list').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-7 run-title" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-'+ (eventNames.length + 1) + '"></tbody></table>'));
-                $('#event_list').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-2" data-key=""></th><th class="col-6" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
+                $('#event_list').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><h6>' + formatDate(event.info.startDate) + ' : ' + formatDate(event.info.endDate) + '</h6><thead><tr class="d-flex"><th class="col-2" data-key=""></th><th class="col-6" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="SCHEDULER_NUMBER">Start Date</th><th class="col-date" data-key="RUN_START">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
 
 
                 // $('#live-events').append($('<tr class="d-flex eventTitle">'));
@@ -310,6 +311,7 @@ $(function() {
 
                 // tr.children("td:nth-child(1)").html(title);
                 i--;
+                localizeAll(lang);
             }
         }
 
