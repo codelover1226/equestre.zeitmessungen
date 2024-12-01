@@ -143,10 +143,12 @@ $(function() {
         updateEventList();
 
         var url = new URL(location.href);
-        var c = url.searchParams.get("eventid");
+        
+        var eventId = url.searchParams.get("eventid");
+        var runId = url.searchParams.get("runid");
+        var c = eventId + "_" + runId + '_2';       
 
         if (c != "") joinToEvent(c);
-
     });
 
     socket.on("live_info", function(data) {
@@ -283,11 +285,11 @@ $(function() {
     socket.on('startlist', function(data) {
         console.log("[on] startlist:" + data.length /* + JSON.stringify(data) */ );
         startlist = data;
-        if(data.length > 60) {
-            $("#nav-seriesranking").show();
-        } else {
+        // if(data.length > 60) {
+            // $("#nav-seriesranking").show();
+        // } else {
             $("#nav-seriesranking").hide();
-        }
+        // }
 
         startlistmap = {};
         for (let startlistentry of data) {

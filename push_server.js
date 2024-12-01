@@ -334,11 +334,13 @@ io.on('connection', function(socket) {
         } else if (obj.cmd === 'exit') {
             processExit(obj);
         } else if (obj.cmd == 'xls') {
-            processXls(obj);
+            processXls(obj);            
         } else if (obj.cmd == 'pdf') {
             processPdf(obj);
         } else if (obj.cmd == 'link') {
             processLink(obj);
+        } else if (obj.cmd == 'delete') {
+            processDelete(obj);
         }
     });
 
@@ -399,6 +401,8 @@ io.on('connection', function(socket) {
             processPdf(obj);
         } else if (obj.cmd == 'link') {
             processLink(obj);
+        } else if (obj.cmd == 'delete') {
+            processDelete(obj);
         }
 
     });
@@ -430,26 +434,27 @@ io.on('connection', function(socket) {
 
         try {
             // find the event from event list
-            let eventFound = events.find(function(event) {
-                return (event.info.eventTitle === command.eventTitle) && (event.info.eventDate === command.eventDate);
-            });
+            // let eventFound = events.find(function(event) {
+            //     return (event.info.eventTitle === command.eventTitle) && (event.info.eventDate === command.eventDate);
+            // });
 
             let eventId = 0;
 
-            if (eventFound === undefined) {
-                // get event id from database
-                eventId = await dbaction.findEvent(command.eventTitle, command.eventDate);
-                if (eventId === 0) {
-                    eventId = await dbaction.addEvent(command);
-                }
-                //eventId = Date.now();
-            } else {
-                eventId = eventFound.id;
-            }
+            // if (eventFound === undefined) {
+            //     // get event id from database
+            //     eventId = await dbaction.findEvent(command.eventTitle, command.eventDate);
+            //     if (eventId === 0) {
+            //         eventId = await dbaction.addEvent(command);
+            //     }
+            //     //eventId = Date.now();
+            // } else {
+            //     eventId = eventFound.id;
+            // }
+            if(command.meetingNumber == 0) return
+            eventId = command.meetingNumber + "_" + command.eventNumber + '_' + command.discipline;
 
             socket.eventId = eventId;
             
-
             // add to the event list
             let event = getSocketEvent();
 
@@ -1062,6 +1067,11 @@ io.on('connection', function(socket) {
 
     async function processXls(command) {
         let event = getSocketEvent();
+
+        // if (command.type) {
+        //     event = events.find(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
+        // }
+
         if (event === false) {
             console.error("xls command: failed.");
             return;
@@ -1091,7 +1101,7 @@ io.on('connection', function(socket) {
         let event = getSocketEvent();
 
         if (command.type) {
-            event = events.find(e => e.id == command.eventid) || false;
+            event = events.find(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
         }
 
         if (event === false) {
@@ -1145,7 +1155,7 @@ io.on('connection', function(socket) {
         // let event = getSocketEvent(); // get live event
 
         // if (command.type) {
-            event = events.find(e => e.id == command.eventid) || false;
+        let event = events.find(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
         // }
 
         if (event === false) {
@@ -1168,6 +1178,27 @@ io.on('connection', function(socket) {
         console.log("[emit] socket:events" + JSON.stringify(eventInfos));
         
         io.emit('events', eventInfos);        
+    }
+
+    async function processDelete(command) {
+        // let event = getSocketEvent(); // get live event
+
+        // if (command.type) {
+        let event = events.find(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
+        // }
+
+        if (event === false) {
+            console.error("delete command: failed.");
+            return;
+        }
+
+        let events = events.filter((e) => {
+            return e.id != event.id;
+        });
+        
+        console.log("[emit] socket:events" + JSON.stringify(events));
+        
+        io.emit('events', events);        
     }
 
     async function processStartlist(command) {

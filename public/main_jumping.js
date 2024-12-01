@@ -196,10 +196,11 @@ $(function() {
         updateEventList();
 
         var url = new URL(location.href);
-        var c = url.searchParams.get("eventid");
+        var eventId = url.searchParams.get("eventid");
+        var runId = url.searchParams.get("runid");
+        var c = eventId + "_" + runId + '_0';
 
         if (c != "") joinToEvent(c);
-
     });
 
     // add new event started

@@ -194,11 +194,11 @@ $(function() {
                 const eventTitle = $('<div></div>');
 
                 if (event.info.discipline == 0) {
-                    eventTitle.append("<div class='disp-ico'><img src='images/jumping.png'/></div>");
+                    eventTitle.append("<div class='disp-ico'>" + event.info.eventNumber + ", <img src='images/jumping.png'/></div>");
                 } else if (event.info.discipline == 2) {
-                    eventTitle.append("<div class='disp-ico'><img src='images/cross.png'/></div>");
+                    eventTitle.append("<div class='disp-ico'>" + event.info.eventNumber + ", <img src='images/cross.png'/></div>");
                 } else if (event.info.discipline == 3) {
-                    eventTitle.append("<div class='disp-ico'><img src='images/dressage.png'/></div>");
+                    eventTitle.append("<div class='disp-ico'>" + event.info.eventNumber + ", <img src='images/dressage.png'/></div>");
                 }
 
 
@@ -295,7 +295,7 @@ $(function() {
                 eventNames.push(event.info.title);
                 let title = event.info.title;
                 // $('#event_list').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-7 run-title" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-'+ (eventNames.length + 1) + '"></tbody></table>'));
-                $('#event_list').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><h6>' + formatDate(event.info.startDate) + ' : ' + formatDate(event.info.endDate) + '</h6><thead><tr class="d-flex"><th class="col-2" data-key=""></th><th class="col-6" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="SCHEDULER_NUMBER">Start Date</th><th class="col-date" data-key="RUN_START">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
+                $('#event_list').append($('<table class="table table-scoreboard eventboard">' + '<span>' + event.info.meetingNumber + '</span><h4 class="event-title">' + title + '</h4><h6>' + formatDate(event.info.startDate) + ' : ' + formatDate(event.info.endDate) + '</h6><thead><tr class="d-flex"><th class="col-2" data-key=""></th><th class="col-6" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="SCHEDULER_NUMBER">Start Date</th><th class="col-date" data-key="RUN_START">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
 
 
                 // $('#live-events').append($('<tr class="d-flex eventTitle">'));
@@ -391,7 +391,8 @@ $(function() {
         if (discipline != undefined) uri = discipline;
 
         if (uri != "")
-            location.href = "/" + uri + "?eventid=" + event.id;
+            // location.href = "/" + uri + "?eventid=" + event.id;
+            location.href = "/" + uri + "?eventid=" + event.info.meetingNumber + "&runid=" + event.info.eventNumber;
 
         return;
         
