@@ -178,8 +178,8 @@ $(function() {
                 let id = '#live-events-' + eventNames.length;
                 $(id).append($('<tr class="d-flex">'));
                 tr = $(id + ' tr:last');
-                tr.append($('<td class="col-2" rowspan="2" style="border-top:0px;border-bottom:0px">').html("&nbsp"));
-                tr.append($('<td class="col-6">').html("&nbsp"));
+                tr.append($('<td class="col-1" rowspan="2" style="border-top:0px;border-bottom:0px">').html("&nbsp"));
+                tr.append($('<td class="col-5" style="overflow:visible">').html("&nbsp"));
                 tr.append($('<td class="col-date">').html("&nbsp"));
                 tr.append($('<td class="col-date">').html("&nbsp"));
                 tr.append($('<td class="col-date">').html("&nbsp"));
@@ -191,7 +191,7 @@ $(function() {
                 // tr.children("td:nth-child(1)").html(title);
                 //tr.children("td").eq(0).html(title);
 
-                const eventTitle = $('<div></div>');
+                const eventTitle = $('<div style="position:relative"></div>');
 
                 if (event.info.discipline == 0) {
                     eventTitle.append("<div class='disp-ico'>" + event.info.eventNumber + ", <img src='images/jumping.png'/></div>");
@@ -202,7 +202,7 @@ $(function() {
                 }
 
 
-                eventTitle.append("<span id='live-ico-" + event.id + "' style='display:none; float: right;'><img src='images/giphy.gif' width=60 /></span>");
+                eventTitle.append("<span id='live-ico-" + event.id + "' style='display:none; position:absolute; left:-80px'><img src='images/giphy.gif' width=60 /></span>");
                 eventTitle.append(`<div  class="mb-2">${event.info.eventTitle}</div>`); //style='float:left;'
                 // TODO: remove `hidden` class when the estimation calculation is fixed
                 const eventProgress = $(`<div class="progress"><div class="progress-bar" role="progressbar" style="width: 70%">35 / 75</div></div> <div class="mt-2 hidden"><span id="event" data-key="ETA">Estimated Time of Completion: </span><span id="eta">11:45</span></div>`);
@@ -295,7 +295,7 @@ $(function() {
                 eventNames.push(event.info.title);
                 let title = event.info.title;
                 // $('#event_list').append($('<table class="table table-scoreboard eventboard"><h4 class="event-title">' + title + '</h4><thead><tr class="d-flex"><th class="col-7 run-title" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="START_DATE">Start Date</th><th class="col-date" data-key="END_DATE">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-'+ (eventNames.length + 1) + '"></tbody></table>'));
-                $('#event_list').append($('<table class="table table-scoreboard eventboard">' + '<span>' + event.info.meetingNumber + '</span><h4 class="event-title">' + title + '</h4><h6>' + formatDate(event.info.startDate) + ' : ' + formatDate(event.info.endDate) + '</h6><thead><tr class="d-flex"><th class="col-2" data-key=""></th><th class="col-6" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="SCHEDULER_NUMBER">Start Date</th><th class="col-date" data-key="RUN_START">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
+                $('#event_list').append($('<table class="table table-scoreboard eventboard">' + '<span style="font-size:smaller">' + event.info.meetingNumber + '</span><h4 class="event-title">' + title + '</h4><h6 style="font-size:large">' + formatDate(event.info.startDate) + ' - ' + formatDate(event.info.endDate) + '</h6><thead><tr class="d-flex"><th class="col-1" data-key=""></th><th class="col-5" data-key="COMPETITION">Competition</th><th class="col-date" data-key="CATEGORY">Category</th><th class="col-date" data-key="SCHEDULER_NUMBER">Start Date</th><th class="col-date" data-key="RUN_START">End Date</th><th class="col-xls"><img src="images/xls.png" width="20"/></th></tr></thead><tbody id="live-events-' + eventNames.length + '"></tbody></table>'));
 
 
                 // $('#live-events').append($('<tr class="d-flex eventTitle">'));
