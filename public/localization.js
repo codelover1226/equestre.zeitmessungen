@@ -131,7 +131,7 @@ var localization = {
         HEIGHT: 'Höhe',
         INITIAL_LIST_AMOUNT: 'Preisgeld',
         NOTES: 'Bemerkungen',
-        SCHEDULER_NUMBER: 'Programmnummer',
+        SCHEDULER_NUMBER: 'Prüfungsnummer',
         DATE: 'Datum',
         CCRANKING: 'CC Ranking',
         RUN_START: 'Prüfungsbeginn',

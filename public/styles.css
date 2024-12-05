@@ -10,7 +10,7 @@ body {
     .body-gap{
         display: flex;
         flex-grow: 1;
-        background-image: url("/images/Hintergrund Cross.jpg");
+        /* background-image: url("/images/Hintergrund Cross.jpg"); */
         background-position: center;
         background-size:contain;
         background-repeat: no-repeat;
@@ -18,7 +18,7 @@ body {
     .body-gap1{
         display: flex;
         flex-grow: 1;
-        background-image: url("/images/Hintergrund Springen.jpg");
+        /* background-image: url("/images/Hintergrund Springen.jpg"); */
         background-position: center;
         background-size:contain;
         background-repeat: no-repeat;
@@ -44,6 +44,50 @@ body {
     }
 }
 
+.container-cross {
+    position: relative;
+    box-sizing: border-box;
+    /*background: #000000;*/
+    color:#FFFFFF;
+    max-width: 1200px;
+    /* margin:auto; */
+    padding: 0px 20px 0px 20px;
+    margin:0;
+    min-height: 100vh;
+    background-image: url("/images/Hintergrund Cross.jpg");
+    background-position-y: 140px;
+    background-position-x: center;
+    /* background-position: center; */
+    background-size:contain;
+    background-repeat: no-repeat;
+    .main-container {
+        min-height: 530px;
+    }
+}
+.border-top{
+    /* border: solid 2px #ceb6b6; */
+    border-top: solid 2px #ceb6b6;
+}
+
+.container-jumping {
+    position: relative;
+    box-sizing: border-box;
+    /*background: #000000;*/
+    color:#FFFFFF;
+    max-width: 1200px;
+    /* margin:auto; */
+    padding: 0px 20px 0px 20px;
+    margin:0;
+    min-height: 100vh;
+    background-image: url("/images/Hintergrund Springen.jpg");
+    background-position-y: 140px;
+    background-position-x: center;
+    background-size:contain;
+    background-repeat: no-repeat;
+    .main-container {
+        min-height: 530px;
+    }
+}
  /*header with logo and language*/
 
 header {
