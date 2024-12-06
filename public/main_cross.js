@@ -309,7 +309,7 @@ $(function() {
 
         if (gameInfo == null) return;
         
-        gameInfo.eventId = +curEvent;
+        gameInfo.eventId = curEvent;
         currentTableType = gameInfo.table_type;
         twoPhaseGame = gameInfo.two_phase;
         rankings = data.ranking;

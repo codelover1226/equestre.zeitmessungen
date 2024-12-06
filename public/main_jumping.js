@@ -330,7 +330,7 @@ $(function() {
         // move "labeled" to the bottom
         if(data.ranking.length == 0)return;
         gameInfo = data.gameInfo;
-        gameInfo.eventId = +curEvent;
+        gameInfo.eventId = curEvent;
         currentTableType = gameInfo.table_type;
         twoPhaseGame = gameInfo.two_phase;
         rankingsTemp = Array.from(data.ranking);
@@ -1644,6 +1644,10 @@ $(function() {
 
     function updateEventProgress() {
         const eventCount = events.length;
+        console.log("updateEventProgress")
+        console.log("startlist", startlist)
+        console.log("gameInfo", gameInfo)
+        console.log("events", events)
         for (let i = 0; i < eventCount; i++) {
             const event = events[i];
             if (gameInfo.eventId === event.id) {
@@ -1680,6 +1684,7 @@ $(function() {
     }
 
     function joinToEvent(eventId) {
+        console.log("joinTiEvent : " + eventId)
         let event = events.find((event) => {
             return (event.id == eventId);
         });

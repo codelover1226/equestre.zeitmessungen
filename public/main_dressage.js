@@ -238,11 +238,6 @@ $(function() {
     socket.on('startlist', function(data) {
         console.log("[on] startlist:" + data.length /* + JSON.stringify(data) */ );
         startlist = data;
-        if(data.length > 60) {
-            $("#nav-seriesranking").show();
-        } else {
-            $("#nav-seriesranking").hide();
-        }
 
         startlistmap = {};
         for (let startlistentry of data) {
@@ -257,7 +252,7 @@ $(function() {
         console.log("[on] ranking:" + data.ranking.length /* + JSON.stringify(data) */ );
         // move "labeled" to the bottom
         gameInfo = data.gameInfo;
-        gameInfo.eventId = +curEvent;
+        gameInfo.eventId = curEvent;
         currentTableType = gameInfo.table_type;
         twoPhaseGame = gameInfo.two_phase;
         rankings = data.ranking;
