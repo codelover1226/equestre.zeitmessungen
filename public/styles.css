@@ -498,7 +498,8 @@ td p {
     top: 1400px;
     .current_list_back{
         background-image: url('images/current_list.jpg');
-        max-width: 1200px;
+        width: 100%;
+        /* max-width: 1200px; */
         height: 100%;
         margin: auto;
     }

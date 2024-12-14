@@ -106,6 +106,7 @@ $(function() {
     var sections = {} // section's player num list 
     var sync_time = 0;
     var prev_time = 0;
+    var cur_back_counter = 0;
 
 
     var rolling_timer;
@@ -135,7 +136,7 @@ $(function() {
             if ($('#start_list').css('display') == 'none') {
                 $('#current_list_back').css({ top: $('#current_list').position().top + 5 });
                 if ($('#current_body tr').length == 0) {
-                    $('#current_list_back').css({height: "115px"});
+                    $('#current_list_back').css({height: "70px"});
                     $('.time-stop').hide();
                 } else {
                     $('#current_list_back').css({height: "145px"});
