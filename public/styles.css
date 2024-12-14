@@ -488,7 +488,9 @@ td p {
     float:right;
     margin-top: -13px;
 }
-
+.progress-wrapper{
+    padding: 8px 0 8px 0;
+}
 #current_list_back {
     position: absolute;
     background-size: cover;
