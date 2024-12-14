@@ -1184,17 +1184,15 @@ io.on('connection', function(socket) {
         // let event = getSocketEvent(); // get live event
 
         // if (command.type) {
-        let event = events.find(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
+        let eventIndex = events.findIndex(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
         // }
 
-        if (event === false) {
+        if (eventIndex === -1) {
             console.error("delete command: failed.");
             return;
         }
 
-        let events = events.filter((e) => {
-            return e.id != event.id;
-        });
+        events.splice(eventIndex, 1);
         
         console.log("[emit] socket:events" + JSON.stringify(events));
         
