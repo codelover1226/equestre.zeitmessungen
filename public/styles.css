@@ -496,8 +496,12 @@ td p {
     width: 100%;
     height: 145px;
     top: 1400px;
-    background-image: url('images/current_list.jpg');
-
+    .current_list_back{
+        background-image: url('images/current_list.jpg');
+        max-width: 1200px;
+        height: 100%;
+        margin: auto;
+    }
 }
 
 .disp-ico {
