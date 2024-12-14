@@ -104,6 +104,7 @@ $(function() {
     var rolling_timer;
     var timer_running = false;
     var show_timer = true;
+    var cur_back_counter = 0;
 
     var eventInfo = {}; // event.info
 
