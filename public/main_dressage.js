@@ -13,6 +13,8 @@ let currentTableType = TABLE_A;
 let twoPhaseGame = 0;
 let isRealtime = false;
 var _startlist;
+var server_time = 0;
+var client_time = 0; 
 
 const labels = ["CLASSFIED", "NOT_PRESENT", "NOT_STARTED", "RETIRED", "ELIMINATED", "OFF_COURSE", "DISQUALIFIED"];
 const headerClasses = {
@@ -108,7 +110,46 @@ $(function() {
     // Prompt for setting a username
     var connected = false;
     var socket = io();
+    setInterval(function () {
+        
+        if (!server_time) return;
 
+        var t = server_time + Date.now() - client_time;
+        var date = new Date(t);
+        var hour    = date.getHours();
+        var minute  = date.getMinutes();
+        var seconds = date.getSeconds(); 
+        var mils = parseInt(date.getMilliseconds() / 100);
+
+        $('#now_time').html(("0" + hour).slice(-2) + ":" + ("0" + minute).slice(-2) + ":" + ("0" + seconds).slice(-2) + "." + mils);
+
+        if (cur_back_counter == 0) {
+            if ($('#start_list').css('display') == 'none') {
+                $('#current_list_back').css({ top: $('#current_list').position().top + 5 });
+                if ($('#current_body tr').length == 0) {
+                    $('#current_list_back').css({height: "115px"});
+                    $('.time-stop').hide();
+                } else {
+                    $('#current_list_back').css({height: "145px"});
+                }    
+            } else {
+                const startlistRow = findRealtimeRow();
+                
+                if (Object.keys(startlistRow).length != 0) {
+                    console.log(startlistRow.position().top);
+                    $('#current_list_back').css({ top: startlistRow.offset().top + 1});
+                    $('#current_list_back').css({height: startlistRow.height() - 1});
+                } else {
+                    $('#current_list_back').css({height: "0px"});
+                }
+            }
+
+        }
+
+        cur_back_counter ++;
+        if (cur_back_counter > 5) cur_back_counter = 0;
+        
+    }, 100);
 
     socket.emit("subscribe", "consumer");
     //
@@ -177,8 +218,10 @@ $(function() {
 
         // set eventInfo
         eventInfo = data;
+        server_time = eventInfo.server_time;
+        client_time = Date.now();
 
-        country = eventInfo.country.toLowerCase();
+        country = eventInfo.country.toLowerCase() || 'ch';
 
         // update UI
         $('#meeting-title').text(data.title);
@@ -730,7 +773,7 @@ $(function() {
 
         const jumpoffNumber = eventInfo.jumpoffNumber;
         const roundNumber = eventInfo.roundNumber;
-        country = eventInfo.country.toLowerCase();
+        country = eventInfo.country.toLowerCase() || 'ch';
         const round = eventInfo.round;
         const jumpoff = eventInfo.jumpoff;
         let offset = round ? round : (jumpoff + roundNumber);

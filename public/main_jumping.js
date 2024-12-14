@@ -240,7 +240,7 @@ $(function() {
         server_time = eventInfo.server_time;
         client_time = Date.now();
 
-        country = eventInfo.country.toLowerCase();
+        country = eventInfo.country.toLowerCase() || 'ch';
 
         // update UI
         $('#meeting-title').text(data.title);
@@ -1058,7 +1058,7 @@ $(function() {
 
         const jumpoffNumber = eventInfo.jumpoffNumber;
         const roundNumber = eventInfo.roundNumber;
-        country = eventInfo.country.toLowerCase();
+        country = eventInfo.country.toLowerCase() || 'ch';
         const round = eventInfo.round;
         const jumpoff = eventInfo.jumpoff;
         let offset = round ? round : (jumpoff + roundNumber);

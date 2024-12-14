@@ -7,11 +7,52 @@
 body {
 	background: #000000;
     display: flex;
+    .body-gap-jumping{
+        display: flex;
+        flex-grow: 1;
+        /* background-image: url("/images/Hintergrund Cross.jpg"); */
+        /* background-position: center; */
+        background-size:contain;
+        background-repeat: no-repeat;
+        background-image: url("/images/Hintergrund Springen.jpg");
+        /* background-position-y: 140px; */
+        background-position-x: left;
+        background-size:contain;
+        background-repeat: no-repeat;
+    }
     .body-gap{
         display: flex;
         flex-grow: 1;
         /* background-image: url("/images/Hintergrund Cross.jpg"); */
         background-position: center;
+        background-size:contain;
+        background-repeat: no-repeat;
+    }
+    .body-gap-cross{
+        display: flex;
+        flex-grow: 1;
+        /* background-image: url("/images/Hintergrund Cross.jpg"); */
+        /* background-position: center; */
+        background-size:contain;
+        background-repeat: no-repeat;
+        background-image: url("/images/Hintergrund Cross.jpg");
+        /* background-position-y: 140px; */
+        background-position-x: right;
+        /* background-position: center; */
+        background-size:contain;
+        background-repeat: no-repeat;
+    }
+    .body-gap-dressage{
+        display: flex;
+        flex-grow: 1;
+        /* background-image: url("/images/Hintergrund Cross.jpg"); */
+        /* background-position: center; */
+        background-size:contain;
+        background-repeat: no-repeat;
+        background-image: url("/images/dressage-back.png");
+        /* background-position-y: 140px; */
+        background-position-x: right;
+        /* background-position: center; */
         background-size:contain;
         background-repeat: no-repeat;
     }
@@ -54,12 +95,6 @@ body {
     padding: 0px 20px 0px 20px;
     margin:0;
     min-height: 100vh;
-    background-image: url("/images/Hintergrund Cross.jpg");
-    background-position-y: 140px;
-    background-position-x: right;
-    /* background-position: center; */
-    background-size:contain;
-    background-repeat: no-repeat;
     .main-container {
         min-height: 530px;
     }
@@ -79,11 +114,21 @@ body {
     padding: 0px 20px 0px 20px;
     margin:0;
     min-height: 100vh;
-    background-image: url("/images/Hintergrund Springen.jpg");
-    background-position-y: 140px;
-    background-position-x: left;
-    background-size:contain;
-    background-repeat: no-repeat;
+    .main-container {
+        min-height: 530px;
+    }
+}
+
+.container-dressage {
+    position: relative;
+    box-sizing: border-box;
+    /*background: #000000;*/
+    color:#FFFFFF;
+    max-width: 1200px;
+    /* margin:auto; */
+    padding: 0px 20px 0px 20px;
+    margin:0;
+    min-height: 100vh;
     .main-container {
         min-height: 530px;
     }
