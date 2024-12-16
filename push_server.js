@@ -1157,6 +1157,12 @@ io.on('connection', function(socket) {
         // if (command.type) {
         let event = events.find(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
         // }
+        const utf8Decoder = new TextDecoder('utf-8');
+        const buffer = Buffer.from(command.text, 'utf-8'); 
+        const decodedData = utf8Decoder.decode(buffer);
+        console.log("processLink")
+        console.log(decodedData)
+        console.log(command.link)
 
         if (event === false) {
             console.error("link command: failed.");
@@ -1165,7 +1171,6 @@ io.on('connection', function(socket) {
 
         let text = command.text;
         let link = command.link;
-        
         event.info.links = event.info.links || {};
         event.info.links[text] = link;
         // event.info.link.link = link;

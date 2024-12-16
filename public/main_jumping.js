@@ -1331,6 +1331,12 @@ $(function() {
                 row[4] = eventInfo.modeTeamRelay? getTeamNations(num) : rider.nation || country;
                 newStartList.push(row);
             } else {
+                ranking[5] = 0;
+                // ranking[6] = r.start_time;
+                if(r.start_time == 0){
+                    ranking[6] = 'Mass start';
+                }else
+                    ranking[6] = convertSecondsToTime(r.start_time);
                 newStartList.push(ranking);
             }
         });
@@ -1342,7 +1348,15 @@ $(function() {
         })
         localizeAll(lang);
     }
-
+    function convertSecondsToTime(seconds) {
+        seconds = seconds / 1000
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 10000) / 60);
+        const remainingSeconds = seconds % 60;
+    
+        // Format the time string
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
     function updateTeamRankingList() {
 
         if (team_rankings.length >= 1) {
@@ -1475,6 +1489,89 @@ $(function() {
     }
 
     function addRow(rowData, container, isData, classes, horse, rider, swapNumAndRank, hideRank) {
+
+        if (!rowData) { return; }
+        const row = $("<tr class=''></tr>");
+        const cols = [];
+        for (let i = 0; i < rowData.length; i++) {
+            let style = '';
+            const dot = i === 0 && isData && rowData[i] !== '' ? '.' : '';
+            if (i === 0) { style = classes.rnkClass; }
+            if (i === 1) { style = classes.numClass; }
+            if (i === 2) { style = classes.horseClass; }
+            if (i === 3) {
+                style = classes.riderClass;
+            }
+            if (i === 4) { style = classes.flagClass; }
+            //if (i >= 5 && i % 2 === 1) { style = classes.pointsClass; }
+            //if (i >= 5 && i % 2 === 0) { style = classes.timeClass; }
+            if (i >= 5 && Math.floor((i + 1)/2) % 2 === 1) { style = classes.pointsClass; }
+            if (i >= 5 && Math.floor((i + 1)/2) % 2 === 0) { style = classes.timeClass; }
+            let v = rowData[i];
+            if (i === 0 && isData && v !== '') {
+                // Rank column
+                v = `${v}.`;
+            }
+            if (i === 2 || i === 3) {
+                // horse, rider column
+                v = `<span>${v}</span>`;
+                if (i === 2 && horse) {
+                    v = eventInfo.modeTeamRelay? getTeamHorses(rowData[1]) : `<span>${horse.name}</span>`;
+                    const arr = [horse.passport, horse.owner, horse.father, horse.mother, horse.fatherOfMother, horse.signalementLabel];
+                    // const arr = [horse.passport, horse.gender, horse.owner, horse.father, horse.mother, horse.fatherOfMother, horse.signalementLabel];
+                    const filtered = arr.filter(v => v);
+                    //if (arr.length <= filtered.length + 2) 
+                    {
+                        const additional = `<span class="font-light">${filtered.join("/")}</span>`;
+                        v = `${v}<br>${additional}`;
+                    }
+                }
+                if (i === 3 && rider) {
+                    v = eventInfo.modeTeamRelay? getTeamRiders(rowData[1]) : `<span>${rider.firstName} ${rider.lastName}</span>`;
+                    const arr = [rider.nation, rider.city, rider.license, rider.club];
+                    const filtered = arr.filter(v => v);
+                    //if (arr.length <= filtered.length + 2) 
+                    {
+                        const additional = `<span class="font-light">${filtered.join("/")}</span>`;
+                        v = `${v}<br>${additional}`;
+                    }
+                }
+            }
+            if (i >= 5 && (i % 2 === 1 || i % 2 === 0)) {
+                // TODO: point column or time column
+                v = `<span>${v}</span>`;
+            }
+            const colType = isData ? 'td' : 'th';
+            const col = $(`<${colType} class='${style}'>${v}</${colType}>`);
+            if (i === 4 && isData) {
+                const url = `/flags/${rowData[i]}.bmp`;
+                col.css("background", `#232323 url('${url}') center no-repeat`).css("background-size", "contain");
+                col.attr("data-toggle", "tooltip").attr("title", rowData[i]);
+                col.html('');
+            }
+            if (i === 0 && hideRank) {
+                col.addClass("d-none");
+            }
+            if (i === 1 && hideRank) {
+                col.addClass("col-num-lg");
+            }
+            cols.push(col);
+        }
+        if (swapNumAndRank) {
+            const temp = cols[0].html();
+            cols[0].html(cols[1].html());
+            cols[1].html(temp);
+
+            const tempStyle = cols[0].attr('class');
+            cols[0].attr('class', cols[1].attr('class'));
+            cols[1].attr('class', tempStyle);
+        }
+        cols.forEach(col => row.append(col));
+        container.append(row);
+        return row;
+    };
+
+    function addRowForStartlist(rowData, container, isData, classes, horse, rider, swapNumAndRank, hideRank) {
 
         if (!rowData) { return; }
         const row = $("<tr class=''></tr>");
