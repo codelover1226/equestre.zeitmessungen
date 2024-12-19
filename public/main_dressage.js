@@ -1367,6 +1367,7 @@ $(".nav .nav-link").click(function() {
     $("section#sec-live").css("display", "none");
     $("section#sec-startlist").css("display", "none");
     $("section#sec-ranking").css("display", "none");
+    $("#current_list_back").show();
 
     if (menu_id == "nav-live") {
         $("#nextriders_list").show();
@@ -1407,6 +1408,7 @@ $(".nav .nav-link").click(function() {
         $("#ccranking_list").show();
         $("#seriesranking_list").hide();
         $("#judges_list").hide();
+        $("#current_list_back").hide();
     } else if (menu_id == "nav-seriesranking") {
         $("#nextriders_list").hide();
         $("#current_list").hide();
