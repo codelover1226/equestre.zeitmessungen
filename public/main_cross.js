@@ -572,6 +572,16 @@ $(function() {
     ///////////////////////////////////////////////////
     // UI management function
 
+    function convertSecondsToTime(seconds) {
+        seconds = seconds / 1000
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 10000) / 60);
+        const remainingSeconds = seconds % 60;
+    
+        // Format the time string
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
     function updateGameInfo() {
         const allowedTimeLabel = (gameInfo && gameInfo.allowed_time) ? formatFloat(gameInfo.allowed_time / 1000, 2, 'floor') : '-';
         const allowedTimeJumpoff = (gameInfo && gameInfo.two_phase) ? formatFloat(gameInfo.allowed_time_jumpoff / 1000, 2, 'floor') : '-';
@@ -1167,13 +1177,19 @@ $(function() {
                 }
 
                  
+            } else {
+                row[5] = 0;
+                // ranking[6] = r.start_time;
+                if(r.start_time == 0){
+                    row[6] = '';
+                }else
+                row[6] = convertSecondsToTime(r.start_time);
             }
             let id = "startlist_" + num;
             addRow(ranking || row, tbody, true, dataClasses, horse, rider, true, false, id);
         });
         localizeAll(lang);
     }
-
     function updateRankingList() {
         if (rankings.length >= 1) {
             updateHeaders(rankings[0]);

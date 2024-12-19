@@ -251,6 +251,7 @@ $(function() {
         for (let horse of data) {
             horses[horse.idx] = horse;
         }
+        window.horses = horses
 
         // update UI
         updateRankingList();
@@ -263,7 +264,7 @@ $(function() {
         for (let rider of data) {
             riders[rider.idx] = rider;
         }
-
+        window.riders = riders
         // update UI
         updateRankingList();
     });
@@ -948,6 +949,10 @@ $(function() {
 
                 let startlistentry = startlistmap[num];
                 row[6] = tickToTimeD(startlistentry.start_time, 2);
+                if(r.start_time == 0){
+                    row[6] = '';
+                }else
+                    row[6] = tickToTimeD(r.start_time);
             }
 
             addRow(ranking || row, tbody, true, dataClasses, horse, rider, true);
@@ -1207,6 +1212,7 @@ $(function() {
 
     function updateTable(tableName, table) {
         if (table.length < 1) { return; }
+        console.log("tableName : ",tableName, table)
         const tableBody = $(`#${tableName}_body`);
         tableBody.html('');
         for (let i = 1; i < table.length; i++) {
@@ -1218,6 +1224,9 @@ $(function() {
                 const horse = horses[horseIdx];
                 const rider = riders[riderIdx];
                 addRow(table[i], tableBody, true, dataClasses, horse, rider, false, tableName === 'nextriders');
+            } else {
+                const rider = riders[num];
+                addRow(table[i], tableBody, true, dataClasses, null, rider, false, tableName === 'nextriders');
             }
         }
     }
@@ -1398,6 +1407,7 @@ $(".nav .nav-link").click(function() {
         $("#ccranking_list").hide();
         $("#seriesranking_list").hide();
         $("#judges_list").show();
+        $("#current_list_back").hide();
     } else if (menu_id == "nav-ccranking") {
         $("#nextriders_list").hide();
         $("#current_list").hide();
