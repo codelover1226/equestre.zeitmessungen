@@ -1,5 +1,6 @@
 var lang = 'en';
 var country = 'ch';
+var default_flag = 'SUI';
 
 const flagStyle = 'flat';
 const flagSize = 64;
@@ -1172,7 +1173,11 @@ $(function() {
             const colType = isData ? 'td' : 'th';
             const col = $(`<${colType} class='${style}'>${v}</${colType}>`);
             if (i === 4 && isData) {
-                const url = `/flags/${rowData[i]}.bmp`;
+                let url;
+                if(rowData[i])
+                    url = `/flags/${rowData[i]}.bmp`;
+                else
+                    url = `/flags/${default_flag}.bmp`;
                 col.css("background", `#232323 url('${url}') center no-repeat`).css("background-size", "contain");
                 col.attr("data-toggle", "tooltip").attr("title", rowData[i]);
                 col.html('');
