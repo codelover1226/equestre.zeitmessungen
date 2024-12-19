@@ -96,6 +96,8 @@ $(function() {
     var startlistmap = {}; // number indexed map
     var rankings = []; // ranking list
     var cc_rankings = []; // cc ranking list
+    var cc_rankings_base = []; // cc ranking_base list
+    window.cc_rankings_base = []
     var gameInfo = {};
     var realtime = {}; // live info
     var finished = Array();
@@ -333,8 +335,10 @@ $(function() {
     });
 
     socket.on('cc-ranking', function(data) {
-        console.log("[on] ranking:" + data.length /* + JSON.stringify(data) */ );
+        console.log("[on] cc ranking:" + data.length /* + JSON.stringify(data) */ );
         // move "labeled" to the bottom
+        cc_rankings_base = data.map(obj => ({ ...obj }));
+        window.cc_rankings_base = cc_rankings_base;
         cc_rankings = data;
 
         for (let i = 1; i < cc_rankings.length; i++) {
@@ -355,10 +359,14 @@ $(function() {
             }
         }
 
+        console.log("cc_rankings");
         console.log(cc_rankings);
+        console.log("cc_rankings_base");
+        console.log(cc_rankings_base);
 
         // Update UI
         updateCCRankingList();
+        updateRankingList();
     });
 
 
@@ -1225,8 +1233,27 @@ $(function() {
                 const rider = riders[riderIdx];
                 addRow(table[i], tableBody, true, dataClasses, horse, rider, false, tableName === 'nextriders');
             } else {
-                const rider = riders[num];
-                addRow(table[i], tableBody, true, dataClasses, null, rider, false, tableName === 'nextriders');
+                // const rider = riders[num];
+                let rider;
+                let horse;
+                cc_rankings_base = window.cc_rankings_base
+                for (let ii = 1; ii < cc_rankings_base.length; ii++) {
+                    try {
+                        let num1 = cc_rankings_base[ii][1];
+                        const horseIdx = cc_rankings_base[ii][2];
+                        const riderIdx = cc_rankings_base[ii][3];
+                        if(num1 == num){
+                            horse = horses[horseIdx]
+                            rider = riders[riderIdx]
+                            break;
+                        }            
+                    } catch(e)
+                    {
+        
+                    }
+                }
+                // console.log(i, rider, horse)
+                addRow(table[i], tableBody, true, dataClasses, horse, rider, false, tableName === 'nextriders');
             }
         }
     }
@@ -1397,6 +1424,7 @@ $(".nav .nav-link").click(function() {
         $("#start_list").show();
         $("#ccranking_list").hide();
         $("#judges_list").show();
+        $("#current_list_back").hide();
     } else if (menu_id == "nav-ranking") {
         $("#nextriders_list").hide();
         $("#current_list").hide();

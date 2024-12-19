@@ -1867,6 +1867,7 @@ $(".nav .nav-link").click(function() {
         $('#current_list_back').show();
         $("#seriesranking_list").hide();
         $("#ccranking_list").hide();
+        $("#current_list_back").hide();
     } else if (menu_id == "nav-ranking") {
         $("#nextriders_list").hide();
         $("#current_list").hide();
