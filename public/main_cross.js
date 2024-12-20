@@ -330,6 +330,7 @@ $(function() {
     socket.on('startlist', function(data) {
         console.log("[on] startlist:" + data.length /* + JSON.stringify(data) */ );
         startlist = data;
+        window.startlist = data
         // if(data.length > 60) {
             // $("#nav-seriesranking").show();
         // } else {
@@ -863,16 +864,19 @@ $(function() {
                 });
 
                 if (!startlistentry) continue;
-
                 const num = startlistentry.num;
-                const horse = horses[startlistentry.horse_idx];
-                const rider = riders[startlistentry.rider_idx];
-                const data = Array(rankings[0].length).fill('');
-                data[0] = num;
-                data[1] = num;
-                data[2] = `${horse.name}`;
-                data[3] = `${rider.firstName} ${rider.lastName}`;
-                table[i + 1] = data;
+                const ranking = rankings.find(r => r[1] === num);
+                table[i + 1] = ranking;
+                if(!ranking){
+                    const horse = horses[startlistentry.horse_idx];
+                    const rider = riders[startlistentry.rider_idx];
+                    const data = Array(rankings[0].length).fill('');
+                    data[0] = num;
+                    data[1] = num;
+                    data[2] = `${horse.name}`;
+                    data[3] = `${rider.firstName} ${rider.lastName}`;
+                    table[i + 1] = data;
+                }
             }
     
             updateTable("nextriders", table);

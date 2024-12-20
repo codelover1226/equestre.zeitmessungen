@@ -1428,6 +1428,7 @@ $(".nav .nav-link").click(function() {
         $("#ranking_list").hide();
         $("#start_list").show();
         $("#ccranking_list").hide();
+        // $("#judges_list").hide();
         $("#judges_list").show();
         $("#current_list_back").hide();
     } else if (menu_id == "nav-ranking") {

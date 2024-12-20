@@ -1068,9 +1068,9 @@ io.on('connection', function(socket) {
     async function processXls(command) {
         let event = getSocketEvent();
 
-        // if (command.type) {
-        //     event = events.find(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
-        // }
+        if (command.type) {
+            event = events.find(e => e.id == (command.eventid + '_' + command.runid + '_' + command.discipline)) || false;
+        }
 
         if (event === false) {
             console.error("xls command: failed.");
